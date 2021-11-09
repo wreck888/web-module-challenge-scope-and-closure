@@ -28,11 +28,16 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+
+    The count variable is a global scope in counter2 and function scoped in counter 2.
   
   2. Which of the two uses a closure? How can you tell?
-  
+
+    counter1 because of the function nested inside of function counterMaker reaching to the outer function to get a value.
+
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+     Counter 2 would be better used if more functions needed the variable counter1.
 */
 
 // counter1 code
@@ -63,7 +68,7 @@ NOTE: This will be a callback function for the tasks below
 */
 
 function inning(){
-         return Math.floor(Math.random() * 2);
+         return Math.floor(Math.random() * 3);
        }
 console.log(inning())
 
@@ -81,21 +86,20 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(inningcb, inningnumber){
-    return {
-    Home: inningcb(),
-    Away: inningcb()
-  }
-  function totalScore(inningcb){
+
+function finalScore(inningcb, inningNumber) {
   let homeScore = 0;
   let awayScore = 0;
+
+  for (let i = 0; i < inningNumber; i++) {
+    homeScore = homeScore + inningcb();
+    awayScore = awayScore + inningcb();
   }
-  for(let i = 0; i < inningnumber; i++){
-    const currentScore = inningcb(inningcb);
-    homeScore = homeScore + currentScore.Home;
-    awayScore = awayScore + currentScore.Away;
+
+  return {
+    Home: homeScore,
+    Away: awayScore
   }
-  return totalScore;
 }
 
 console.log(finalScore(inning, 9))
@@ -109,13 +113,6 @@ function getInningScore(inningcb) {
   return {
     Home: inningcb(),
     Away: inningcb()
-  }
-  function gameScore(inningcb){
-    let homeScore = 0;
-    let awayScore = 0;
-    const currentScore = inningcb(inningcb);
-    homeScore = homeScore + currentScore.Home;
-    awayScore = awayScore + currentScore.Away;
   }
 
 }
